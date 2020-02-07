@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "androidx.navigation.safeargs"
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -42,4 +45,7 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+
+
+
 }
