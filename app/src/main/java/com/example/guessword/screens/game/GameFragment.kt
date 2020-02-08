@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 
 import com.example.guessword.R
 import com.example.guessword.databinding.FragmentGameBinding
@@ -44,6 +46,7 @@ class GameFragment : Fragment(){
         Log.i("Started the ","ViewModelProviders.of")
        viewmodel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
+        binding.endGameButton.setOnClickListener { onEndGame() }
 
 
 
@@ -59,15 +62,14 @@ class GameFragment : Fragment(){
     /** Methods for buttons presses **/
 
     private fun onSkip() {
-        score--
-        viewmodel.nextWord()
+
+        viewmodel.onSkip()
         updateWordText()
         updateScoreText()
     }
 
     private fun onCorrect() {
-        score++
-        viewmodel.nextWord()
+        viewmodel.onCorrect()
                  updateWordText()
          updateScoreText()
     }
@@ -82,6 +84,20 @@ class GameFragment : Fragment(){
 
     private fun updateScoreText() {
         binding.scoreText.text = viewmodel.score.toString()
+    }
+
+    /**
+     * Called when the game is finished
+     */
+    private fun gameFinished() {
+        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
+        val action = GameFragmentDirections.actionGameFragmentToScoreFragment()
+        action.score = viewmodel.score
+        NavHostFragment.findNavController(this).navigate(action)
+    }
+
+    private fun onEndGame() {
+        gameFinished()
     }
 
 

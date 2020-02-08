@@ -55,6 +55,23 @@ import androidx.lifecycle.ViewModel
          wordList.shuffle()
      }
 
+
+     /** Methods for buttons presses **/
+
+      fun onSkip() {
+         score--
+         nextWord()
+
+     }
+
+      fun onCorrect() {
+         score++
+         nextWord()
+
+     }
+
+
+
      /**
       * Moves to the next word in the list
       */
