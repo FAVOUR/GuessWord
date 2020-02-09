@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 
 import com.example.guessword.R
 import com.example.guessword.databinding.FragmentScoreBinding
@@ -35,7 +37,19 @@ class ScoreFragment : Fragment() {
 
         viewModel=ViewModelProviders.of(this,viewModelFactory)[ScoreViewModel::class.java]
 
-        binding.scoreText.text = viewModel.score.toString()
+        // Add observer for score
+        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
+            binding.scoreText.text = newScore.toString()
+        })
+
+        // Navigates back to game when button is pressed
+        viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
+            if (playAgain) {
+                findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToGameFragment())
+                viewModel.onPlayAgainComplete()
+            }
+        })
+
 
         return binding.root
     }
