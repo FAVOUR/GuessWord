@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 
 import com.example.guessword.R
 import com.example.guessword.databinding.FragmentScoreBinding
@@ -15,7 +16,8 @@ import com.example.guessword.databinding.FragmentScoreBinding
  * A simple [Fragment] subclass.
  */
 class ScoreFragment : Fragment() {
-
+    private lateinit var viewModel: ScoreViewModel
+    private lateinit var viewModelFactory: ScoreViewModelFactory
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +31,11 @@ class ScoreFragment : Fragment() {
             container,
             false
         )
+         viewModelFactory= ScoreViewModelFactory(ScoreFragmentArgs.fromBundle(arguments!!).score)
+
+        viewModel=ViewModelProviders.of(this,viewModelFactory)[ScoreViewModel::class.java]
+
+        binding.scoreText.text = viewModel.score.toString()
 
         return binding.root
     }
