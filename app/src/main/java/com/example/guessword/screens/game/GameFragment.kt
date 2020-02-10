@@ -46,18 +46,24 @@ class GameFragment : Fragment(){
             binding.scoreText.text = newScore.toString()
 
         })
+
+        //Used to connect viewModel with  the view using data binding
         binding.gameViewmodel=viewmodel
 
 
-        viewmodel.word.observe(viewLifecycleOwner, Observer {newWord ->
-            binding.wordText.text = newWord.toString()
+        // Specify the fragment view as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        })
+//        viewmodel.word.observe(viewLifecycleOwner, Observer {newWord ->
+//            binding.wordText.text = newWord.toString()
+//
+//        })
 
         // Observer for the Game finished event
-        viewmodel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
-            if (hasFinished) gameFinished()
-        })
+//        viewmodel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+//            if (hasFinished) gameFinished()
+//        })
 
 //        binding.endGameButton.setOnClickListener { onEndGame() }
 
