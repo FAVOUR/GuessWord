@@ -60,10 +60,10 @@ class GameFragment : Fragment(){
 //
 //        })
 
-        // Observer for the Game finished event
-//        viewmodel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
-//            if (hasFinished) gameFinished()
-//        })
+//         Observer for the Game finished event
+        viewmodel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+            if (hasFinished) gameFinished()
+        })
 
 //        binding.endGameButton.setOnClickListener { onEndGame() }
 
